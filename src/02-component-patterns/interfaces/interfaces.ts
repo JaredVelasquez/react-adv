@@ -6,10 +6,12 @@ import { Props  as ProductImageProps} from "../components/ProductImage"
 
 export interface PropCardProps{
     product: Product,
-    children?: ReactElement | ReactElement[],
+    // children?: ReactElement | ReactElement[],
+    children: (args: ProductCartHandlers) => JSX.Element,
     className?: string,
     style?: React.CSSProperties,
-    onChange?: (args: onChangeArgs) => void
+    onChange?: (args: onChangeArgs) => void,
+    initialValues?: InitialValues
   }
   
   export interface ProductButtonsProps {
@@ -25,7 +27,8 @@ export interface PropCardProps{
   export interface ProductContextProps{
     counter: number,
     increaseBy: (value: number) => void,
-    product: Product
+    product: Product,
+    maxCount?: number
   }
 
   export interface ProductCardHOCProps{
@@ -43,4 +46,18 @@ export interface PropCardProps{
   
 export interface ProductInCart extends Product{
   count: number
+}
+
+export interface InitialValues{
+  count?: number,
+  maxCount?: number
+}
+
+export interface ProductCartHandlers {
+  count: number,
+  isMaxCountReached: boolean,
+  maxCount?: number,
+  product: Product,
+  increaseBy: (value: number) => void,
+  reset: () => void
 }
